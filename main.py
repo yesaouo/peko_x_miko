@@ -157,7 +157,7 @@ async def slash_command12(interaction: discord.Interaction, account: str):
             profile_str = '```'
             profile_str += f'用戶名稱: {profile[0]}\n金幣　　: {profile[1][0]}\n寶石　　: {profile[1][1]}\n\n持有角色\n'
             for i in profile[2]:
-                profile_str += f'Lv:{profile[2][i]: >3} {i}'
+                profile_str += f'Lv:{profile[2][i]: >3} {i}\n'
             profile_str += '```'
             await interaction.response.send_message(profile_str)
     except:
