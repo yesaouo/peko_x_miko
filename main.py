@@ -151,15 +151,17 @@ async def slash_command11(interaction: discord.Interaction, choice: str):
 async def slash_command12(interaction: discord.Interaction, account: str):
     try:
         profile = mongo.holodive(account)
-        if len(profile) != 3:
+        if len(profile) != 5:
             await interaction.response.send_message('查無此用戶')
         else:
-            profile_str = '```'
-            profile_str += f'用戶名稱: {profile[0]}\n金幣　　: {profile[1][0]}\n寶石　　: {profile[1][1]}\n\n持有角色\n'
-            for i in profile[2]:
-                profile_str += f'Lv:{profile[2][i]: >3} {i}\n'
-            profile_str += '```'
-            await interaction.response.send_message(profile_str)
+            userEmbed=discord.Embed(title=profile[0], description="", color=0x5edeec)
+            userEmbed.set_author(name="HoloDive", url="https://holodive.onrender.com/", icon_url="https://yesaouo.github.io/HoloDive/img/others/logo.png")
+            userEmbed.set_thumbnail(url=profile[1])
+            userEmbed.add_field(name="Coin", value=profile[2], inline=True)
+            userEmbed.add_field(name="Diamond", value=profile[3], inline=True)
+            for i in profile[4]:
+                userEmbed.add_field(name=i, value=f"Lv: {profile[4][i]}", inline=False)
+            await interaction.response.send_message(embed=userEmbed)
     except:
         await interaction.response.send_message('error')
 
