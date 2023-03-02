@@ -6,11 +6,12 @@ def type(name):
     url = f'https://wiki.52poke.com/wiki/{name}'
     web = requests.get(url)
     soup = BeautifulSoup(web.text, "html.parser")
-    pm_type = soup.find_all('span', class_='type-box-9-text')
+    pm_type = soup.find_all('table', class_='roundy bgwhite fulltable')
     type_list = []
     for i in pm_type:
-      if i.get_text() not in type_list:
-        type_list.append(i.get_text())
+      for j in i.find_all('span', class_='type-box-9-text'):
+        if j.get_text() not in type_list:
+          type_list.append(j.get_text())
     return type_list
   except: return []
 
